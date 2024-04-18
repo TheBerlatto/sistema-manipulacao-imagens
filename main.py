@@ -63,6 +63,15 @@ def grayscaleimage():
     panel.place(x=150, y=40)
     updateimage()
 
+def rotateimage():
+    global filename, img_no
+    img_rotate = Image.open(filename[img_no])
+    img_rotated = img_rotate.rotate(90)
+    img_no = img_no +1
+    img_rotated.save(str(img_no) + '.png')
+    filename[img_no] = str(img_no) + '.png'
+    updateimage()
+
 def MinImage():
     global filename, img_no
     img = Image.open(filename[img_no])
