@@ -7,13 +7,25 @@ import cv2
 import numpy as np
 import os
 
-# definindo propriedades do front-end
+# definindo front-end
 root = Tk()
 root.title("Sistema de Manipulação de Imagens")
-root.geometry("900x700+250+5")
-root.configure(bg="#262626")
+
+# obtendo o tamanho do monitor do usuário
+monitor_height = root.winfo_screenheight()
+monitor_width = root.winfo_screenwidth()
+
+# definindo as dimensões da janela do aplicativo
+root.geometry(f"{monitor_width}x{monitor_height}+0+0")
+root.state("zoomed")
 root.resizable(width=True, height=True)
+
 img_no = 0
+
+bg_image = PhotoImage(file="bgapp.png")
+background_label = Label(root, image=bg_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 filename = ["" for x in range(150)]
 filename[0] = "noFile"
 
@@ -195,4 +207,6 @@ Button(root, text='Minimizar', height="1", width="15", bg="#9CD941", fg="#D9D9D9
 Button(root, text='Maximizar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=MaxImage).place(x=2, y=500)
 Button(root, text='Download', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=downloadimage).place(x=400, y=650)
 Button(root, text='Transladar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=translationImage).place(x=2, y=550)
+
+#Rodar o App
 root.mainloop()
