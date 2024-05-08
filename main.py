@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import ImageTk, Image, ImageEnhance, ImageFilter
 from tkinter import filedialog, messagebox
 from pathlib import Path
+import tkinter as tk
 import shutil
 import cv2
 import numpy as np
@@ -12,19 +13,23 @@ root = Tk()
 root.title("Sistema de Manipulação de Imagens")
 
 # obtendo o tamanho do monitor do usuário
-monitor_height = root.winfo_screenheight()
-monitor_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+screen_width = root.winfo_screenwidth()
 
 # definindo as dimensões da janela do aplicativo
-root.geometry(f"{monitor_width}x{monitor_height}+0+0")
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.state("zoomed")
 root.resizable(width=True, height=True)
 
 img_no = 0
 
-bg_image = PhotoImage(file="bgapp.png")
-background_label = Label(root, image=bg_image)
-background_label.place(x=0, y=0, relwidth=1, relheight=1)
+bg_image = Image.open("bgapp.png")
+bg_image = bg_image.resize((screen_width, screen_height))  # redimensionando a imagem para o tamanho da tela
+bg_image = ImageTk.PhotoImage(bg_image)
+
+# criando um label para exibir a imagem de fundo
+background_label = tk.Label(root, image=bg_image)
+background_label.place(relx=0, rely=0, relwidth=1, relheight=1)  # Ocupa toda a tela
 
 filename = ["" for x in range(150)]
 filename[0] = "noFile"
@@ -54,7 +59,7 @@ def openimage():
     img = ImageTk.PhotoImage(img)
     panel = Label(root, image=img)
     panel.image = img
-    panel.place(x=150, y=40)
+    panel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 def updateimage():
     global filename, img_no
@@ -63,7 +68,7 @@ def updateimage():
     img_enhance = ImageTk.PhotoImage(img_enhance)
     panel = Label(root, image=img_enhance)
     panel.image = img_enhance
-    panel.place(x=150, y=40)
+    panel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 def downloadimage():
     global filename, img_no
@@ -189,24 +194,16 @@ def translationImage():
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")
 
-## Carregando a imagem de fundo
-#imagem_de_fundo = Image.open("bgapp.jpg")
-#imagem = ImageTk.PhotoImage(imagem_de_fundo)
-## Criando um label com a imagem de fundo
-#label_imagem = Label(root, image=imagem_de_fundo)
-#label_imagem.place(x=0, y=0, relwidth=1, relheight=1)
-
-Button(root, text='Abrir Imagem', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=openimage).place(x=2, y=2)
-#Label(root, text='Selecione uma opção', font="Montserrat", bg="#404040", fg="white").place(x=2, y=300)
-Button(root, text='Escala de Cinza', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=grayscaleimage).place(x=2, y=350)
-Button(root, text='Efeito Blur', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=blurimage).place(x=2, y=375)
-Button(root, text='Efeito Sharpen', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=sharpenimage).place(x=2, y=600)
-Button(root, text='Efeito Emboss', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=embossimage).place(x=2, y=650)
-Button(root, text='Rotacionar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=rotateimage).place(x=2, y=390)
-Button(root, text='Minimizar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=MinImage).place(x=2, y=450)
-Button(root, text='Maximizar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=MaxImage).place(x=2, y=500)
-Button(root, text='Download', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=downloadimage).place(x=400, y=650)
-Button(root, text='Transladar', height="1", width="15", bg="#9CD941", fg="#D9D9D9", bd="0", cursor="hand2", font="Montserrat", command=translationImage).place(x=2, y=550)
+Button(root, text='Abrir Imagem', height="2", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=openimage).place(relx=0.001, rely=0.002)
+Button(root, text='Escala de Cinza', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=grayscaleimage).place(relx=0.001, rely=0.35)
+Button(root, text='Efeito Blur', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=blurimage).place(relx=0.001, rely=0.40)
+Button(root, text='Efeito Sharpen', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=sharpenimage).place(relx=0.001, rely=0.45)
+Button(root, text='Efeito Emboss', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=embossimage).place(relx=0.001, rely=0.50)
+Button(root, text='Rotacionar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=rotateimage).place(relx=0.001, rely=0.55)
+Button(root, text='Minimizar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=MinImage).place(relx=0.001, rely=0.60)
+Button(root, text='Maximizar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=MaxImage).place(relx=0.001, rely=0.65)
+Button(root, text='Transladar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=translationImage).place(relx=0.001, rely=0.70)
+Button(root, text='Download', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=downloadimage).place(relx=0.5, rely=0.95, anchor=tk.CENTER)
 
 #Rodar o App
 root.mainloop()
