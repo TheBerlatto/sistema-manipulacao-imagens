@@ -51,22 +51,22 @@ def openimage():
     else:
         newWidth = round(650*fra)
         img.resize((newWidth, 650)).save('img.png')
-    global filename, img_no
+    global filename, img_no, panel
     img_no = img_no + 1
     filename[img_no] = "img.png"
     img = Image.open(filename[img_no])
     #front-end
     img = ImageTk.PhotoImage(img)
-    panel = Label(root, image=img)
+    panel = tk.Label(root, image=img)
     panel.image = img
     panel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 def updateimage():
     global filename, img_no
     img_enhance = Image.open(filename[img_no])
-    #front-end
     img_enhance = ImageTk.PhotoImage(img_enhance)
-    panel = Label(root, image=img_enhance)
+    # utilizando o panel já iniciado em "openimage"
+    panel.configure(image=img_enhance)
     panel.image = img_enhance
     panel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -137,7 +137,7 @@ def rotateimage():
     global filename, img_no
     if os.path.exists(filename[img_no]):
         img_rotate = Image.open(filename[img_no])
-        img_rotated = img_rotate.rotate(90, expand=True, resample=Image.BILINEAR)
+        img_rotated = img_rotate.rotate(90, expand=True)
         img_no = img_no +1
         img_rotated.save(str(img_no) + '.png')
         filename[img_no] = str(img_no) + '.png'
