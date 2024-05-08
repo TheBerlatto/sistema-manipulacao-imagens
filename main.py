@@ -72,11 +72,12 @@ def updateimage():
 
 def downloadimage():
     global filename, img_no
+    filedownload = filedialog.askdirectory()
     # Verificando se a foto teve alterações
     if filename[img_no] != "img.png":
         try:
             # Alterar o caminho da pasta download de acordo com seu PC
-            shutil.move(filename[img_no], "C:/Users/Berlatto/Downloads/" + filename[img_no])
+            shutil.move(filename[img_no], os.path.join(filedownload, filename[img_no]))
             messagebox.showinfo("Sucesso!", "Imagem baixada com sucesso! Verifique sua pasta de downloads.")
         except Exception as e: 
             messagebox.showerror("Erro", f"Erro ao baixar a imagem: {e}")
