@@ -24,7 +24,7 @@ root.resizable(width=True, height=True)
 
 img_no = 0
 
-bg_image = Image.open("bgappnasa.png")
+bg_image = Image.open("BackgroundAppNasa.png")
 bg_image = bg_image.resize((screen_width, screen_height))  # redimensionando a imagem para o tamanho da tela
 bg_image = ImageTk.PhotoImage(bg_image)
 
