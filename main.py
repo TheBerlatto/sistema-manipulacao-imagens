@@ -7,6 +7,7 @@ import shutil
 import cv2
 import numpy as np
 import os
+import keyboard
 
 # definindo front-end
 root = Tk()
@@ -146,55 +147,67 @@ def rotateimage():
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")
 
-#TODO: corrigir bug
 def MinImage():
     global filename, img_no
     if os.path.exists(filename[img_no]):
         img = Image.open(filename[img_no])
         width, height = img.size
-        newHeight = int (height*0.5)
-        newWidth = int (width*0.5)
+        newHeight = int (height*0.8)
+        newWidth = int (width*0.8)
         imageMin = img.resize((newWidth,newHeight), Image.BILINEAR)
-        imageMin.save("imagemmin.png")
         img_no = img_no + 1
-        filename[img_no] = ("imagemin.png")
+        imageMin.save(str(img_no) + ".png")
+        filename[img_no] = str(img_no) + ".png"
         updateimage()
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")
 
-#TODO: corrigir bug
 def MaxImage():
     global filename, img_no
     if os.path.exists(filename[img_no]):
         img = Image.open(filename[img_no])
         width, height = img.size
-        newHeight = int (height*2)
-        newWidth = int (width*2)
-        imageMin = img.resize((newWidth,newHeight), Image.BILINEAR)
-        imageMin.save("imagemmax.png")
+        newHeight = int (height*1.2)
+        newWidth = int (width*1.2)
+        imageMax = img.resize((newWidth,newHeight), Image.BILINEAR)
         img_no = img_no + 1
-        filename[img_no] = ("imagemax.png")
+        imageMax.save(str(img_no) + ".png")
+        filename[img_no] = str(img_no) + ".png"
         updateimage()
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")  
 
-#TODO: corrigir bug de label (não afeta o funcionamento)
 def translationImage():
     global filename,img_no
+    x, y = 0, 0
+    last_key = None
     if os.path.exists(filename[img_no]):
         imagem = cv2.imread(filename[img_no])
 
-        # Define o deslocamento desejado (25 pixels para direita e 50 pixels para baixo)
-        deslocamento = np.float32([[1, 0, 25], [0, 1, 50]])
-
-        # Aplica a translação usando o método warpAffine
-        imagem_transladada = cv2.warpAffine(imagem, deslocamento, (imagem.shape[1]+25, imagem.shape[0]+50),cv2.INTER_LINEAR)
-
-        # salva a imagem e exiba ela na interface
-        cv2.imwrite("imagem_transladada.png", imagem_transladada)
-        img_no = img_no +1
-        filename[img_no] = ("imagem_transladada.png")
+        # Define o deslocamento desejado (x e y)
+        deslocamento = np.float32([[1, 0, x], [0, 1, y]])
         updateimage()
+        key = keyboard.read_event(suppress=True).name
+
+        if key != last_key:
+            if key == 'up':
+                y -= 10
+            elif key == 'down':
+                y += 10
+            elif key == 'left':
+                x -= 10
+            elif key == 'right':
+                x += 10
+
+            deslocamento = np.float32([[1, 0, x], [0, 1, y]])
+            imagem_transladada = cv2.warpAffine(imagem, deslocamento, (imagem.shape[1], imagem.shape[0]),cv2.INTER_LINEAR)
+            # salva a imagem e exiba ela na interface
+            cv2.imwrite("imagem_transladada.png", imagem_transladada)
+            img_no = img_no +1
+            filename[img_no] = ("imagem_transladada.png")
+            updateimage()
+
+            last_key = key
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")
 
