@@ -11,7 +11,7 @@ import keyboard
 
 # definindo front-end
 root = Tk()
-root.title("Sistema de Manipulação de Imagens")
+root.title("Hexa Image Manipulator")
 
 # obtendo o tamanho do monitor do usuário
 screen_height = root.winfo_screenheight()
@@ -211,6 +211,27 @@ def translationImage():
     else:
         messagebox.showwarning("Imagem Inexistente", "Abra uma imagem para que possa ser editada!")
 
+def sobreoapp():
+    janela_sobre = tk.Toplevel()
+    janela_sobre.title("Sobre o App")
+
+    # definindo as dimensões da janela do aplicativo
+    janela_sobre.geometry("500x600")
+    janela_sobre.resizable(width=False, height=False)
+
+    janela_sobre.configure(bg="#A1A2A6")
+
+    label_infoname = tk.Label(janela_sobre, text="Hexa Image Manipulator\nVersão 1.0", font=("Montserrat", 14), bg="#A1A2A6")
+    label_infoname.pack(pady=20)
+
+    label_infodescription = tk.Label(janela_sobre, text="O Hexa Image Manipulator é um aplicativo que permite manipular uma imagem modificando sua rotação, translação e tamanho. É possível também aplicar filtros"
+    + ", permitindo que a foto fique em escala de cinza, blur, sharpen e emboss\n\n Autores: Eduardo Berlatto, Mariana Rosendo, Osmar Jatobá Neto, Pedro Henrique Freire de Oliveira, Vitor Nunes Oliveira\n\n"
+    +"Contato: eduardoberlattousjt@gmail.com\n\nObrigado por usar o app!", font=("Montserrat", 12), wraplength= 450, bg="#A1A2A6")
+    label_infodescription.pack(pady=40)
+
+    botao_fechar = tk.Button(janela_sobre, text='Fechar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=janela_sobre.destroy).place(relx=0.38, rely = 0.95)
+
+
 Button(root, text='Abrir Imagem', height="2", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=openimage).place(relx=0.001, rely=0.002)
 Button(root, text='Escala de Cinza', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=grayscaleimage).place(relx=0.001, rely=0.35)
 Button(root, text='Efeito Blur', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=blurimage).place(relx=0.001, rely=0.40)
@@ -220,6 +241,7 @@ Button(root, text='Rotacionar', height="1", width="15", bg="#56735A", fg="#FFFFF
 Button(root, text='Minimizar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=MinImage).place(relx=0.001, rely=0.60)
 Button(root, text='Maximizar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=MaxImage).place(relx=0.001, rely=0.65)
 Button(root, text='Transladar', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=translationImage).place(relx=0.001, rely=0.70)
+Button(root, text='Sobre o App', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=sobreoapp).place(relx=0.001, rely=0.95)
 Button(root, text='Download', height="1", width="15", bg="#56735A", fg="#FFFFFF", bd="0", cursor="hand2", font="Montserrat", command=downloadimage).place(relx=0.5, rely=0.95, anchor=tk.CENTER)
 
 #Rodar o App
