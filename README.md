@@ -8,7 +8,9 @@ O Hexa Image Manipulator é um aplicativo que permite ao usuário manipular imag
 #### Como utilizar
 Para utilizar o app, basta o usuario abrir uma imagem dentro do app no seu respectivo botão, e posteriormente clicar no efeito e/ou alteração de dimensionamento que preferir e quantas vezes quiser. Para filtros, quanto mais vezes clicar, mais forte o filtro vai ficar. Para dimensionamentos, quanto mais vezes clicar, a intensidade de dimensionamento aumenta mais.
 
-´´´Atenção! Para utilizar a Translação, clique no botão uma vez, em seguida utilize as setas do teclado para definir para onde ocorrerá a translação´´´
+´´´
+Atenção! Para utilizar a Translação, clique no botão uma vez, em seguida utilize as setas do teclado para definir para onde ocorrerá a translação
+´´´
 
 ### Objetivos
 Os objetivos propostos pelo grupo para a realização do projeto foram alcançados com sucesso e o mesmo está sendo entregue na data estipulada pela professora!
